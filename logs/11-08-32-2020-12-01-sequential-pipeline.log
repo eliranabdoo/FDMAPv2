@@ -1,0 +1,166 @@
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x1_2A_1H_0L_TEAM-pipeline-2020-12-01 11:08:36.411865================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 11:08:36.411996================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x2_3A_0H_2L_TEAM-pipeline-2020-12-01 11:08:36.412011================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x2_3A_0H_2L_TEAM-pipeline-2020-12-01 11:08:36.412022================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x2_3A_0H_3L_TEAM-pipeline-2020-12-01 11:08:36.412032================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 11:08:36.412085================
+==================Pipeline Sequential INIT on ./pipeline_logs/BPPEN-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 11:08:36.412100================
+==================Pipeline Sequential INIT on ./pipeline_logs/BPPEN-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 11:08:36.412116================
+==================Pipeline Sequential INIT on ./pipeline_logs/BPPEN-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 11:08:36.412131================
+==================Pipeline Starts on ./pipeline_logs/BP-2x1_2A_1H_0L_TEAM-pipeline-2020-12-01 11:08:36.412148================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-2x1_2A_1H_0L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-2x1_2A_1H_0L_TEAM_agent2.pomdpx': 15}
+Projection took 2.893737
+Solving BP-2x1_2A_1H_0L_TEAM_agent1 with precision 15.000000
+Solving BP-2x1_2A_1H_0L_TEAM_agent2 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-2x1_2A_1H_0L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-2x1_2A_1H_0L_TEAM_agent1.dot']
+Took 0.094949
+Simulating
+===Start sim for horizon 200===
+Won 512 out of 512 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 439.562073
+Without empty states, avg accumulated discounted reward: 858.519673
+Max steps in win: 27
+Avg steps in win: 4
+==================Pipeline Finished on ./pipeline_logs/BP-2x1_2A_1H_0L_TEAM-pipeline-2020-12-01 11:08:36.412148================
+==================Pipeline Starts on ./pipeline_logs/BP-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 11:08:43.509756================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-2x2_2A_0H_2L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-2x2_2A_0H_2L_TEAM_agent2.pomdpx': 15}
+Projection took 3.909239
+Solving BP-2x2_2A_0H_2L_TEAM_agent1 with precision 15.000000
+Solving BP-2x2_2A_0H_2L_TEAM_agent2 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-2x2_2A_0H_2L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-2x2_2A_0H_2L_TEAM_agent1.dot']
+Took 0.233060
+Simulating
+===Start sim for horizon 200===
+Won 742 out of 742 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 359.536477
+Without empty states, avg accumulated discounted reward: 484.550508
+Max steps in win: 23
+Avg steps in win: 10
+==================Pipeline Finished on ./pipeline_logs/BP-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 11:08:43.509756================
+==================Pipeline Starts on ./pipeline_logs/BP-2x2_3A_0H_2L_TEAM-pipeline-2020-12-01 11:09:04.345252================
+Solving team problem
+==================Pipeline ERROR on ./pipeline_logs/BP-2x2_3A_0H_2L_TEAM-pipeline-2020-12-01 11:09:04.345252: ================
+==================Pipeline Starts on ./pipeline_logs/BP-3x2_3A_0H_2L_TEAM-pipeline-2020-12-01 11:09:04.366480================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-3x2_3A_0H_2L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-3x2_3A_0H_2L_TEAM_agent2.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-3x2_3A_0H_2L_TEAM_agent3.pomdpx': 15}
+Projection took 5.187218
+Solving BP-3x2_3A_0H_2L_TEAM_agent1 with precision 15.000000
+Solving BP-3x2_3A_0H_2L_TEAM_agent2 with precision 15.000000
+Solving BP-3x2_3A_0H_2L_TEAM_agent3 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-3x2_3A_0H_2L_TEAM_agent3.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x2_3A_0H_2L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x2_3A_0H_2L_TEAM_agent1.dot']
+Took 2.405302
+Simulating
+===Start sim for horizon 200===
+Won 758 out of 758 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 291.359219
+Without empty states, avg accumulated discounted reward: 384.378917
+Max steps in win: 32
+Avg steps in win: 12
+==================Pipeline Finished on ./pipeline_logs/BP-3x2_3A_0H_2L_TEAM-pipeline-2020-12-01 11:09:04.366480================
+==================Pipeline Starts on ./pipeline_logs/BP-3x2_3A_0H_3L_TEAM-pipeline-2020-12-01 11:13:07.907047================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-3x2_3A_0H_3L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-3x2_3A_0H_3L_TEAM_agent2.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-3x2_3A_0H_3L_TEAM_agent3.pomdpx': 15}
+Projection took 6.628089
+Solving BP-3x2_3A_0H_3L_TEAM_agent1 with precision 15.000000
+Solving BP-3x2_3A_0H_3L_TEAM_agent2 with precision 15.000000
+Solving BP-3x2_3A_0H_3L_TEAM_agent3 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-3x2_3A_0H_3L_TEAM_agent3.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x2_3A_0H_3L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x2_3A_0H_3L_TEAM_agent1.dot']
+Took 156.414785
+Simulating
+===Start sim for horizon 200===
+Won 863 out of 863 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 386.395888
+Without empty states, avg accumulated discounted reward: 447.735675
+Max steps in win: 44
+Avg steps in win: 19
+==================Pipeline Finished on ./pipeline_logs/BP-3x2_3A_0H_3L_TEAM-pipeline-2020-12-01 11:13:07.907047================
+==================Pipeline Starts on ./pipeline_logs/BP-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 12:58:14.063019================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-3x1_2A_1H_1L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BP-3x1_2A_1H_1L_TEAM_agent2.pomdpx': 15}
+Projection took 4.190812
+Solving BP-3x1_2A_1H_1L_TEAM_agent1 with precision 15.000000
+Solving BP-3x1_2A_1H_1L_TEAM_agent2 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-3x1_2A_1H_1L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x1_2A_1H_1L_TEAM_agent1.dot']
+Took 0.316170
+Simulating
+===Start sim for horizon 200===
+Won 725 out of 775 nonempty games, 93 percent
+Won 950 out of 1000 games, 95 percent
+With empty states, avg accumulated discounted reward: 510.549582
+Without empty states, avg accumulated discounted reward: 658.773654
+Max steps in win: 48
+Avg steps in win: 14
+==================Pipeline Finished on ./pipeline_logs/BP-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 12:58:14.063019================
+==================Pipeline Starts on ./pipeline_logs/BPPEN-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 12:58:41.978724================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BPPEN-3x1_2A_1H_1L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BPPEN-3x1_2A_1H_1L_TEAM_agent2.pomdpx': 15}
+Projection took 6.668444
+Solving BPPEN-3x1_2A_1H_1L_TEAM_agent1 with precision 15.000000
+Solving BPPEN-3x1_2A_1H_1L_TEAM_agent2 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BPPEN-3x1_2A_1H_1L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BPPEN-3x1_2A_1H_1L_TEAM_agent1.dot']
+Took 0.411925
+Simulating
+===Start sim for horizon 200===
+Won 52 out of 757 nonempty games, 6 percent
+Won 295 out of 1000 games, 29 percent
+With empty states, avg accumulated discounted reward: -1703.224483
+Without empty states, avg accumulated discounted reward: -2249.966292
+Max steps in win: 18
+Avg steps in win: 7
+==================Pipeline Finished on ./pipeline_logs/BPPEN-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 12:58:41.978724================
+==================Pipeline Starts on ./pipeline_logs/BPPEN-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 13:00:58.595022================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BPPEN-2x2_2A_0H_2L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BPPEN-2x2_2A_0H_2L_TEAM_agent2.pomdpx': 15}
+Projection took 8.844721
+Solving BPPEN-2x2_2A_0H_2L_TEAM_agent1 with precision 15.000000
+Solving BPPEN-2x2_2A_0H_2L_TEAM_agent2 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BPPEN-2x2_2A_0H_2L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BPPEN-2x2_2A_0H_2L_TEAM_agent1.dot']
+Took 0.278702
+Simulating
+===Start sim for horizon 200===
+Won 752 out of 752 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 359.016314
+Without empty states, avg accumulated discounted reward: 477.415311
+Max steps in win: 28
+Avg steps in win: 9
+==================Pipeline Finished on ./pipeline_logs/BPPEN-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 13:00:58.595022================
+==================Pipeline Starts on ./pipeline_logs/BPPEN-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 13:01:27.057874================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BPPEN-2x2_2A_0H_3L_TEAM_agent1.pomdpx': 15, '/home/eliranab/FDMAP/Resources/problems/BPPEN-2x2_2A_0H_3L_TEAM_agent2.pomdpx': 15}
+Projection took 15.150560
+Solving BPPEN-2x2_2A_0H_3L_TEAM_agent1 with precision 15.000000
+Solving BPPEN-2x2_2A_0H_3L_TEAM_agent2 with precision 15.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BPPEN-2x2_2A_0H_3L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BPPEN-2x2_2A_0H_3L_TEAM_agent1.dot']
+Took 0.604635
+Simulating
+===Start sim for horizon 200===
+Won 847 out of 847 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 514.108490
+Without empty states, avg accumulated discounted reward: 606.975786
+Max steps in win: 34
+Avg steps in win: 14
+==================Pipeline Finished on ./pipeline_logs/BPPEN-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 13:01:27.057874================

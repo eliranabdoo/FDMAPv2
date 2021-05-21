@@ -1,0 +1,24 @@
+==================Pipeline Sequential INIT on ./pipeline_logs/RS-7x4_2C_2S_6P_TEAM-pipeline-2020-12-11 15:43:19.195069================
+==================Pipeline Sequential INIT on ./pipeline_logs/RS-7x4_2C_2S_4P_TEAM-pipeline-2020-12-11 15:43:19.195138================
+==================Pipeline Starts on ./pipeline_logs/RS-7x4_2C_2S_6P_TEAM-pipeline-2020-12-11 15:43:19.195155================
+Solving team problem
+==================Pipeline ERROR on ./pipeline_logs/RS-7x4_2C_2S_6P_TEAM-pipeline-2020-12-11 15:43:19.195155: ================
+==================Pipeline Starts on ./pipeline_logs/RS-7x4_2C_2S_4P_TEAM-pipeline-2020-12-11 15:48:51.983745================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/RS-7x4_2C_2S_4P_TEAM_car1.pomdpx': 50, '/home/eliranab/FDMAP/Resources/problems/RS-7x4_2C_2S_4P_TEAM_car2.pomdpx': 50}
+Projection took 17.843300
+Solving RS-7x4_2C_2S_4P_TEAM_car1 with precision 50.000000
+Solving RS-7x4_2C_2S_4P_TEAM_car2 with precision 50.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/RS-7x4_2C_2S_4P_TEAM_car2.dot', '/home/eliranab/FDMAP/Resources/graphs/RS-7x4_2C_2S_4P_TEAM_car1.dot']
+Took 2.235442
+Simulating
+===Start sim for horizon 200===
+Won 956 out of 980 nonempty games, 97 percent
+Won 976 out of 1000 games, 97 percent
+With empty states, avg accumulated discounted reward: 1045.738007
+Without empty states, avg accumulated discounted reward: 1067.079599
+Max steps in win: 38
+Avg steps in win: 23
+==================Pipeline Finished on ./pipeline_logs/RS-7x4_2C_2S_4P_TEAM-pipeline-2020-12-11 15:48:51.983745================

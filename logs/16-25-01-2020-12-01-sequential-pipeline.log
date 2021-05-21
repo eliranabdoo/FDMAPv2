@@ -1,0 +1,4 @@
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x3_2A_2H_1L_TEAM-pipeline-2020-12-01 16:25:05.081284================
+==================Pipeline Starts on ./pipeline_logs/BP-3x3_2A_2H_1L_TEAM-pipeline-2020-12-01 16:25:05.081368================
+Projecting team problem
+==================Pipeline ERROR on ./pipeline_logs/BP-3x3_2A_2H_1L_TEAM-pipeline-2020-12-01 16:25:05.081368: name 'ca_total_reward' is not defined================
