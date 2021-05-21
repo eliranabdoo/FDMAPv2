@@ -1,0 +1,19 @@
+/home/eliranab/FDMAP/POMDPX/POMDPX.py:455: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if cur_entry.table == "uniform":
+Projecting team problem
+Traceback (most recent call last):
+  File "run_pipeline.py", line 100, in <module>
+    main(*sys.argv[1:])
+  File "run_pipeline.py", line 51, in main
+    projected_problem_path_to_precision = project(team_problem_name, problem_kind, projection_suffix)
+  File "/home/eliranab/FDMAP/TeamProblemProjector/Projector.py", line 346, in main
+    suffix='')
+  File "/home/eliranab/FDMAP/TeamProblemProjector/Projector.py", line 190, in project_team_problem
+    problem_pomdpx=team_problem_pomdpx)  # TODO OPTIMIZE
+  File "/home/eliranab/FDMAP/TeamProblemProjector/TraceAnalysisUtils.py", line 89, in get_affecting_state_action_costs
+    sum_curr_rewards, all_rewards = problem_pomdpx.calc_rewards(cur_state, cur_action, next_state)
+  File "/home/eliranab/FDMAP/POMDPX/POMDPX.py", line 227, in calc_rewards
+    CurrentFuncState = namedtuple(typename="CurrentFuncState", field_names=existing_state_vars)
+  File "/home/eliranab/fdmap/lib/python3.7/collections/__init__.py", line 395, in namedtuple
+    namespace = {'_tuple_new': tuple_new, '__name__': f'namedtuple_{typename}'}
+KeyboardInterrupt

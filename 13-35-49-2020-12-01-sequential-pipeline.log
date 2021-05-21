@@ -1,0 +1,20 @@
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x3_2A_2H_1L_TEAM-pipeline-2020-12-01 13:35:51.944625================
+==================Pipeline Starts on ./pipeline_logs/BP-3x3_2A_2H_1L_TEAM-pipeline-2020-12-01 13:35:51.944780================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-3x3_2A_2H_1L_TEAM_agent1.pomdpx': 100, '/home/eliranab/FDMAP/Resources/problems/BP-3x3_2A_2H_1L_TEAM_agent2.pomdpx': 100}
+Projection took 10.652638
+Solving BP-3x3_2A_2H_1L_TEAM_agent1 with precision 100.000000
+Solving BP-3x3_2A_2H_1L_TEAM_agent2 with precision 100.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-3x3_2A_2H_1L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x3_2A_2H_1L_TEAM_agent1.dot']
+Took 2.079265
+Simulating
+===Start sim for horizon 200===
+Won 353 out of 886 nonempty games, 39 percent
+Won 467 out of 1000 games, 46 percent
+With empty states, avg accumulated discounted reward: -1484.006327
+Without empty states, avg accumulated discounted reward: -1674.950707
+Max steps in win: 68
+Avg steps in win: 23
+==================Pipeline Finished on ./pipeline_logs/BP-3x3_2A_2H_1L_TEAM-pipeline-2020-12-01 13:35:51.944780================

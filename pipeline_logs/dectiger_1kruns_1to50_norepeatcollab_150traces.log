@@ -1,0 +1,61 @@
+Projecting team problem
+Metadata not stated!
+Metadata not stated!
+Metadata not stated!
+{'/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent1.pomdpx': 0.5, '/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent2.pomdpx': 0.5}
+Projection took 5.764612
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent1.dot']
+Metadata not stated!
+Took 0.163618
+Simulating
+===Start sim for horizon 1===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -2.000000
+Without empty states, avg accumulated discounted reward: -2.000000
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 2===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -2.009821
+Without empty states, avg accumulated discounted reward: -2.009821
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 3===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 10.261857
+Without empty states, avg accumulated discounted reward: 10.261857
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 4===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.477987
+Without empty states, avg accumulated discounted reward: 8.477987
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 5===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 9.597698
+Without empty states, avg accumulated discounted reward: 9.597698
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 6===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.239199
+Without empty states, avg accumulated discounted reward: 8.239199
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 7===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 9.431417
+Without empty states, avg accumulated discounted reward: 9.431417
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 8===

@@ -1,0 +1,32 @@
+Projecting team problem
+Metadata not stated!
+Metadata not stated!
+Metadata not stated!
+{'/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent1.pomdpx': 0.1, '/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent2.pomdpx': 0.1}
+Projection took 3.333773
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent1.dot']
+Metadata not stated!
+Took 0.183528
+Simulating
+===Start sim for horizon 10===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 7.572557
+Without empty states, avg accumulated discounted reward: 7.572557
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 20===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 0.839103
+Without empty states, avg accumulated discounted reward: 0.839103
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 50===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: -17.499364
+Without empty states, avg accumulated discounted reward: -17.499364
+Max steps in win: 0
+Avg steps in win: 0

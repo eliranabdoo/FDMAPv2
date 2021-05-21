@@ -1,0 +1,1105 @@
+- allow free public contexted action of other agents, beware of loop, need to check that
+- start implementing the simulation for dec pomdp.
+
+notes following implementation:
+delete all public actions that weren't applied by neither of the agents
+perhaps can simplify public rewards by canceling 0 reward for free gap fillers with their original penalty,
+since we're already deleting the remaining public actions!
+
+with gap fillers, we might want to change the penalty for non contexted and non gap fillers public actionst
+to be higher than the reward for the objective itself (assuming we leave it to give some orientation to the agent)
+unless we delete the public actions altoghether
+
+what about private actions of other agents? perhaps we should remove them as well. Perhaps not as they can
+again create gaps. Perhaps can only reduce sense actions since they don't change the state.
+
+when adding gap fillers, we cancel the reward given for joint actions! either flip the order of gap fillers
+and public action rewards, or just don't add already rewarded joints as gap fillers.
+
+transform joint actions to single agent actions! We need to determine whether we allow private actions of other agents
+if so, then the transformation of joint actions to single agent actions is equivalent to defining them as gap filler.
+We just achieve the ability to move a heavy box regardless of the other agent's position, but if we can move it anyway then what difference does it make
+
+- Stochasticity
+We previously thought about how the single agent refers to the overall stochasticity of the problem,
+when taking other agents' information into account. Since we still allow the agent to perform other agents actions
+it may already be encapsulated. But what happens in the Dec-POMDP? How should it look like?
+- Criteria definitions:
+We need to make some separation of private and public state variables, and require that private
+actions can only alter the private state variables of each agent, to avoid the use of private actions as 
+a loop creator for the rewarded public actions.
+
+Write about single agent problems projection vs the current architecture, since its probematic that we use
+sense and private actions of other agents. We assume that we simulate the sensing of other agents,
+and rely on their observations.
+
+Following the removal of sense actions, we need to determine how are the factorization is manifested in the
+single agent problems.
+With simply deleting the sense actions of co_agents, we expect our agent to simply perform many sense actions
+that replace them. First thing to do would be to penalize non-contexted sensing actions, basically treating it
+as a public action. That way we can say that an agent can plan its actions by only sensing the same places it has
+sensed in the team problem, the question is how will it handle the state alterations needed. Perhaps a properly
+factored Dec-POMDP is one in which the agent doesn't need to rely on other agents to reach certain states, whereas
+in the classical planning we could just ignore precondition and hope other agents to act properly.
+Some intution would be to converge into a policy where the agent repeatidly senses the same locations until
+it sees the required state (other agents location really should be removed from its state), but still not sure
+on how to imbue it in the single agent problem, since the agent is also responsible for altering the state.
+
+After adding both co_Agent sensing deletion, and penalizing non contexted senses, it came to my mind that perhaps
+other agents's state altering actions (aka public action), shouldn't be penalized at all. When penalizing them,
+we disable our agent from abusing their actions in order to compensate for the lack of their sensing.
+
+- What is a factored problem in our setting?
+The informal definition would be having an underlying mapping of agents -> objectives, or even further,
+agents -> responsibility_areas.
+A more formal definition would be perhaps the inability to replace between agents, meaning that one agent cannot
+perform the other agents' policy instead of him and vice versia. But this implies that the hardness of Dec-POMDP
+is rooted only in the symmetry between agents' actions, which is not likely to be true.
+
+- The problem of one sensing agent in the team problem
+When sensing in the Team Problem, we pretty much sense for all of the agents. We do expect the single agents
+to compensate somehow for it in their respective problems, it is inevitable.
+
+- Repetitive Sensing is perhaps a good option, but problematic in the single agents problems
+For example in the chain problem, if each agent would simply know to sense it's location while expecting for the other
+agents to bring the box to him, we get a very nice factorization.
+
+- Break moving calculation ties in the Team Problem with move reward
+Since the map is still quite small, sometimes the planner will prefer to do alot of action with a single agents,
+simply because it is arithmetically equivalent as moving other agents. I added a minor reward for putting the agent
+in the target tile. Need to refine this
+
+- High penalty in contexted exact states creates problems when there's uncertainty
+The agent is "afraid" to apply its public contexed actions as it is not sure about the state and might inflict
+high penalty upon applying the action. Other agent's location should definitely be omitted, but it's almost
+impossible to drop other state variable, especially in policies that reminiscent of the chain case.
+
+- Copycat the behaviour of precondition deletion somehow is probably the key to actually solving it, regardless of the
+problems structure. It might naturally reveal what is a factored problem. Perhaps taking the other agents applied action
+and completely delete their originating state, so they only bring us to the required state,
+still with no determinism so that sensing remains essential? (we still need to prevent abuse ...)
+
+12/1/19
+
+- The current idea is to mimic the preconditions avoidance by rewarding the public actions in a smarter way, which
+resembles projection: a contexed public action is contexed by the relevant state variables - acting agents and related
+state variables (so called "subject" in the POMDP class). This idea can divide the problems into hardness
+classes, as harder problems will have actions with wider collection of "subjects", that can translate both to state
+variables that the actions manipulates, and ones it doesn't.
+
+- penalty also plays a role in determining how much does the agent care about ensuring other agents' actions. The higher
+the penalty, the less it will dare to apply rewarding actions in uncertain states, and the more it will try to alter
+the state to the exact one under which it has applied the action in the Team Problem.
+
+- As can be seen in the CHAINMUST example, sometimes the agent might act quite "risky", meaning it will apply rewarded
+actions under some uncertainty, even when the penalty is extremely high. This is due to the fact that the belief state
+is composed of states that were all rewarding this action in the Team Problem, hence no real risk is taken.
+
+- write some script that converts the dot files to pngs... also add penalty and depth to the graph's name.
+
+- assume structured actions, add the * to  actions as projections
+
+
+After basic projected implemented, 9/12/2019
+
+- Todo write subjects and actions, using action classes in POMDPX
+- DONE- Todo avoid DUPLICATE projections, quite annoying
+
+- should also project gap fillers? probably yes
+
+- problem: found in CHAIN single agent domain. A2 goes to tile 5 and senses for boxes, since no-one else touches them besides himself,
+  he knows for certain they are not there, and just gets into idle, while in DecPOMDP, A3 may have pushed them up before A2 managed to sense them.
+  possible solution would be to introduce non-determinism to the sensing action... may introduce some weighting between sensing few times and only then give up
+  so that A2 will favor pushing the boxes left instead of understanding exactly what happened, by for example going to tile 1 or 0 and sense.
+
+- penalize contexed sensing (i.e. block A2 from sensing A3's tile since A3 performed sensing there). Notice
+that for joint actions two senses must occur, so we might wanna block only those which performed by the coagent
+only, and not by us
+
+- problem hardness might be defined by those in which single agent can achieve certainty regarding their private variables and public variables,
+in the Dec-POMDP, under the assumption that they are the only one altering the world.
+
+- think about how the policy graph should even look with respect to A2
+
+- move reward is apparently still in the problem, should probably remove it
+
+- will A1 get into a loop if A3 and  A2 pushed their box to his position before he managed to understand?
+we need some withdraw strategy, perhaps match oversensing cost with taking the risk of moving back
+and attempt to sense ther
+
+- alignment with order inference. Use the tree structure
+
+
+12/11 - Alignments and Scalability
+Scalability:
+It looks as if we keep considering offline planners only we wouldn't be able to get much scalability. In the Lite-POMDP paper's benchmarks, the largest problem
+SARSOP managed to solve was 250K states with 16 actions and 3 observation.
+Looking at online planners, we can go as far as generating the single agents problems in almost the exact same way we
+did with SARSOP. But then since we rely on policy graphs/trees in order to construct the single agent decentralized policies,
+we need to either be able to construct policy graphs from traces, or assume that the single agent problems will become
+small enough for offline solvers to handle.
+
+POMDP Lite itself works only for models where the hidden state variables (those who are uncertain in the initial state if I understand correctly),
+are changed deterministically, or remain constant. This is not the case because of the boxes and pushes in our case.
+
+I tried to also look at some Dec-POMDP solvers that I encountered when writing the research proposal (JESP, Improved-MBDP, GMMA-ICE),
+and none seem to scale significantly.
+
+You think that this issue is more urgent then the alignment part?
+
+
+Stuff to go over:
+BACKUP (PBVI in general)
+POMCP - V
+UCT - hV
+Back and forth (IMAP)
+
+
+Alignment updates:
+- Work with single node class that can be translated to dot and xnetwork - DONE
+- Need to cut noops given an ancestor already has some - DONE
+- null observation should be derived from POMDPX eventually
+- retain non-finished coagents BFSs
+- path to identifier match should be more generic, nothing like get_action should appear, but just assume that
+subsequenciation is enough and then make a function that translates node\edge to ID component
+- fix loopback
+- should we consider shortest path from root in original tree as noop negator? - DONE
+- we need observations to be part of the identifier, there are some cases where to public action is invoked following different
+observations, leading to identical identifiers. - URGENT!!!
+- Can handle policies by simply adding a node to a path if it didn't appear before... in get_all_paths_to_root. - DONE
+
+- future idea, try to bump the noops chain to higher possible part, lets say after last public\sense action...
+
+
+Traces to policy graph:
+- What tal does is not exactly converting traces to policy graph, but more of running POMCP once and form a policy
+graph from the tree it builds online, by closing loops for close enough belief states.
+- In general, fixing an horizon and making enough runs (lets say |A|*(|O|^h)) should generate a set of traces that
+cover most branches. We can also tweak exploration param if we need to discover more branches.
+- Tal says the algorithm keeps the upper parts of the tree, could impose a serious memory problem...
+
+
+POMCP:
+Start with an empty tree
+We maintain a belief state
+we start building the tree until timeout, where nodes represent histories. Encountered histories are being simulated using
+where action picking is UCT, where from new histories we apply rollout to determine basic value.
+After the timeout is reached, we get the best action for our current history, apply it to receive observation, and then update our belief state.
+The new root of the tree is "hao", where we keep using as it contains simulation information. All other parts of the tree is pruned.
+
+POMDP Simulator:
+Receives:
+- POMDPX Model (min observe is a must)
+- Policy graphs according to the number of agents, that match the POMDPX Model
+
+Its better if we define a "Problem" Object, which allows for calculation of transition, and then write code that translates the POMDPX into that.
+If the POMDPX can be solved using a a single action at the time, the simulator translates the joint action to that
+single action at each step. (for now random pick)
+
+The simulator samples a state from the problem's initial belief, and then just acts based on the policy graph.
+S = Sample(I')
+Start with a pointer to the root of each graph.
+For each agent:
+- Pick the action at the current node
+- Construct a joint-action a_1, ... a_m
+- Generate random tokens, 0 < t_1, ... t_m < 1
+- Define S_i = a_i(S, t_i) where S_i ~ T(S, a_i) if t_i ~ (0,1)
+- We can determine if the actions are conflicting, if the states deltas indicate so (we can formalize that)
+- If they are conflicting, we pick each conflicting subset and pick only one action to work (perhaps turning the other t_i to 0), we simulate the changed t_i's again
+- We update our state S accordingly, and get observations per action
+- After this we get a joint observation, one per action, and a reward R_i. We sum the R_i of course.
+- Send the observation to each corresponding agent, and progress on the graph accordingly.
+
+
+Question for wednesday:
+- Should we write matrix models? if so we should make state, action and obs indexed items, even with some registry instead of just string containers\dict
+- Should we inherently define the dynamics for Dec-POMDP of POMDPX models, by constructing the transition\obs\reward
+function accordingly, or ca we for define them similarly to single agent pomdpx, and somehow resolve this in the Step function?
+
+
+Simulator:
+- in the MINOBS case, must implement default behaviour by multiplying each obs var
+
+
+Problem Requirements:
+- Non deterministic actions require their sensing counterpart to get certainty
+
+
+Semantic analysis:
+- Agent 2 performs the sensing too late, or rather a3 pushes b2 too early...
+
+
+Alignment-V2:
+Stopping at the first identified node is insufficient, we need to find the deepest node that matches. Needs to determine
+branch ceasing criteria. Most naive would be to never stop, just search for that same node in the until BFS is finished.
+
+Introducing orders could greatly reduce the effective number of no-ops inserted...
+
+Each node is still identified all sequences of public actions that appear on paths to route
+and we match it to a branch if it is only contained (perhaps its the same thing that was performed already)
+
+
+ןidentifiers should contain all public actions? or just those of the same agent?
+policy orderings:
+- Goals interfere the costs noise concept, as they may outweigh the noise turning it obsolete
+We need to enforce order through the rewarding actions themselves, assuming the opposite will not occur. Or just derive the noise from the team plan
+altogether.
+- current goal is to artificially construct the order, but ensuring the policies work!
+- precision definitely affect ordering results
+- we can turn all co-agents action into deterministic ones, will greatly simplify policies.
+- shrink idle <-> sense loops to sense loops
+- under certain rewardings,
+agent might prefer to do a single public agent just to get the reward, and come back to it later
+- identifier match with observation, sensing action pair
+- deterministic gap fillers are horrible... we need to be able to sense the outcome of the macro result that gap filling actions achieve
+- sensing <-> idle loops are definitely a problem, they create a situation where alignment has to be artificially accurate...
+- this sole pushing phenomena is making a mess with the alignments...
+- A1's optimal policy would be to sense only the macro results of the gap fillers... perhaps it can be somehow represented
+
+Finally some good results:
+- decreasing the discount factor to 0.95 managed to eliminate the odd single application of actions that agents
+were doing. still need to think exactly why but it definitely was the root cause
+- changing the alignment algorithm to search for all simple paths to root when matching identifiers is crucial.
+taking the length of the matching path itself instead of the matching node's depth is also extremely important. probably
+eliminates the need for using observation match for identification, as the sequence of public actions is derived
+from the sensing
+- oredring was achieved when setting b1, b2, b3's contexed pushes on 2000, 1000 and 500...
+- noise for costs is better just to create some kind of order in small areas
+
+- on -10000 penalty and 500, 100, 5000, for all contexted, with 0.95 disfac, still has occasional public actions
+- with varying contexed reward (2000,1000,500) or (200,100,50), the occasional public actions disappeared
+- interesting to check equal rewards with lower df, and varying reward with higher df (though we probably did it before)
+- ordering the public actions is also responsible for the ordering...
+- even with 0.95 disfac, a rather substanial difference is required so no single applications appear. 150 100 50 didn't work
+200 100 50 did... try working configs with higher discount factor, or better precision for non working ones.
+precision: with 0.000001 no change, doesn't seem to affect
+looks as if it's all about the policy it finds on the first iteration... hence the lesser sensitivity to parameters
+such as disfac and precision
+somewhere between 167 and 170 the policy becomes hybrid with few single applications for a3. with 0.995 disfac a3 also works for 200 100 50
+
+All this stuff gives rise to how should we choose both the reward size and the weightings. Some minimal gap should be derived
+with respect to the costs of the team problem (so the plan wouldn't prefer to just avoid doing the action), and substantial
+gaps between actions should be also applied. For now let's fix the penalty and disfac at something extremely high and 0.95 respectively.
+We'll deal with risk taking agents later on.
+
+For a lower bound on the reward of contexed actions, we can take the max length trace\branch * -max_cost / min_success_rate.
+Assuming deterministic private actions and sensing, this will ensure that no chain of actions would outweigh the application of a single action
+In the chain problem, we get roughly 30*5 / 0.8 ~ 170. Its a very high bound as we take the maximal length without averaging to approximate
+each gap's length.
+
+For ordering gaps, we need something substantial enough such that no reorder of the actions could lead to better reward.
+Again, we can take maximal length with maximal cost. In our case lets say  max length trace\branch * -max_cost * second_action_succ_prob / first_action_succ_prob.
+
+Both of these will probably ensure good order in the policy.
+
+For determining the order we can construct a topological order from the traces, where each node is a public action + its projected state.
+
+The reason for sole applications is that with succ probability we no longer need to apply the action!
+
+
+Collaborative actions are problematic only because they are difficult to align if looped strictly. We can solve this in two ways:
+- Introduce sensing actions for the collaborative actions' variables, which in BP case are the other agent's position
+- Make their cost lower than at least 1/num_collaborting_agents of the sensing, so that sensing loops become 2:1 at least. then there's no way
+agents will fall on opposing applications. CHEAPJOINT
+
+More on collaborative actions:
+- CHEAPJOINT wouldn't work, forgot about the penalty that incurs the loops
+- If sensing "checkpoint" exist on the branch, then probably it is easier for the agents to apply the joint action on time
+- We're really dealing with parity issues here, as long as we assume sense-action cycles of size 2.
+- Two approaches.
+    - If checkpoint exists, then just requiring odd\even chains of noops would result in good alignment
+    - Else, we could use the depth of the bfs + preceding noops, taking the max among the two.
+These two approaches are robust since adding noops can't really do any harm except for the sake of joint actions.
+A more "hacky" approach, would be to identify action-sense loops with a joint action, and then duplicate the joint action
+to the number of cooperating agents (in our case 2), to create larger cycles hence preventing out-of-sync situations.
+
+Well, first of all two foreign_nodes_deletion are optional:
+- Old one: remove all foreign nodes
+- New one: remove foreign nodes which participate in a backloop, and turn to idle others
+- even newer: think about turning all to idle, but backlooped one are handled such that there's one idle, and then self loop
+
+newer options are more logic, as we expect the agent to wait when the other agent is performing his action. on the other hand
+agents might perform their actions at the same time so it might also hurt
+
+old one seems to be performing better on jchain thanks to luck?
+
+exact matching needs to be revisited for efficiency, but it seems hard. Check it first on regular chain.
+
+Results report:
+Entries are succ%, avg_steps
+CHAIN:
++------------+-------+--------+-------+
+| EXACT/POST |  V1   |   V2   |  V3   |
++------------+-------+--------+-------+
+| False      | 99,33 | 100,33 | 99,34 |
+| True       | 81,31 |  65,31 | 74,30 |
++------------+-------+--------+-------+
+JCHAIN:
++------------+-------+-------+-------+
+| EXACT/POST |  V1   |  V2   |  V3   |
++------------+-------+-------+-------+
+| False      | 69,77 | 21,28 | 27,28 |
+| True       | 83,54 | 31,28 | 27,28 |
++------------+-------+-------+-------+
+
+Understand why is ExactV1 failing on CHAIN
+
+Inverting idle chains with sensing loops might benefit greatly
+sensing loops waste idles with no compensation...
+
+Repeating collaborative actions is fucking brilliant. Together with greedy alignment it handles everything nicely
+
+Counter reward for contexed action formula is 19*(1-0.95**n)
+
+A bit late for that, but shouldn't we drop the costs variables of co-agents?
+
+Very interesting, in 33hard what caused failures was the fact that several ways solved the problem then ajpu and ajpl
+were applied together... Perhaps we can assume it will not occur by sarsop
+and if it does, we don't guarantee to solve it.  Anyway these are the results
+33Hard:
++------------+-------+-------+-------+
+| EXACT/POST |  V1   |  V2   |  V3   |
++------------+-------+-------+-------+
+| False      | 66,142 | 62,138 | 70,154|
+| True       | 76,66 | 66,74 | 80,66 |
++------------+-------+-------+-------+
+As usual, 100% success on 3 boxes. If not for that two way solution problem it would get 100% on all
+Didn't check conflicting actions... Confirmed with 33hardfake
+
+More conclusions:
+- precision need to be set so it will guarantee to capture all public actions. This means (disfact**max_branch_length)*min_contexed_reward.
+- formula seems to be working well even with very big numbers. Nonetheless we should try to relax the requirements somehow, at least
+minimizing the min_contexed_reward by looking for average gap between public actions instead of max_branch_length.
+
+RockSampling:
+- If we define move actions as public we can really easily get into contexed application abuse
+- On the other hand, with only sampling as public actions, some controllers don't even get projected
+- Also need to solve the problem of disabling projection of the rock in contexed sampling... should use
+some metadata of the problem, its not a problem parameter... for now can be done manually though
+- We need to keep non sampling agents under projection...
+- Also need to delete rewards in projections...
+- Third option, completely remove actions of non participating agents...
+- Must haves: Sampling projection should include relevant rock state, remove reward vars for rocks
+- Rock states are not exactly public variables... each controller can only affect its own. consider only move as public
+actions while retaining reward for rock sampling?
+
+off topic note about objectives: those that matching state var's change, while eliminating in some way all other vars, will lead to a positive reward
+apparently state variables in traces are sorted lexicographically, that's how SARSOP build the state
+
+
+what an edge case ,root becomes not root when noops are attached to it...
+added share_public_actions to alignment for rocksampling... need to think of it
+
+In our case of rock sampling, the direction is 1 -> 2 -> 4 -> 3
+we fail since there's not enough alignment for agent 4's movements, as he can't align for agent 1 and 2's sampling together
+two rounds of alignment could work...
+
+
+For each agent, we define the set of its variables as the set of variables it can change
+Private variables of an agent are those only he can change
+Public variables of an agent are those all agents can change
+
+In RS: private - rocks condition, public - rovers locations
+In BP: private - agents locations, public - boxes locations
+
+Public actions should be projected with respect to the agent's private variables,
+and to the public variables this :
+In RS: MOVE projected with respect to the rover's location and the controller's rocks
+In BP: PUSH projected with respect to its affected boxes, and the agent's location
+
+We need agents to be able to sense public variables in general...
+
+The main thing needs fixing now is alignment:
+Consider controllers 1 2 and 3.
+Before alignment:
+Agent1 senses the rock, samples if needed, and then moves
+Agent2 cant sense agent1's rock, so the best it can do to start moving is sampling immediately. then move right,
+sense, sample if needed, move down
+Agent3 again can't sense neither rock1 nor 2, so it does sample - moveright - sample - movedown then sense,
+sample if needed and push
+
+We consider Agent3's alignment. It postpones his actions by 1 noop because of either agent1 or agent2, but what
+he should have done in fact is to postpone by 2, looking at agent2's postpone that occured due to agent1
+
+Basic Rocksampling works after 3 rounds of alignment, even with exactalign. exactalign + postv3 looks like the best
+combination.
+
+
+How to avoid abuse:
+- Introduce step variable
+- Add knowledge values to sensible variables, pre and post sense values while function have the same effect on each
+- Add counter variable for each agent's private/public actions (perhaps more specifically, rewarding private actions)
+- Add a single step measuring variable and project everything on it... requires horizonXhorizon matrix
+
+How to handle discounted reward consideration:
+- The reward of same action instances with different contexts (perhaps on partial part, let's say on observable parts only),
+should be split proportionally to their number of applications (e.g. if we say 4 vs 2 application of an action
+when a rock was good and bad respectively, then we need the single agent problem to prefer the application of good,
+hence it will still try to sense for it roughly twice as hard as leaving the sense and just apply the action).
+
+Reward variables that should be left:
+Private reward variables - the agent needs to plan how he achieves his own goals. This includes costs.
+So overall all variables with subject that is either a private variable of the agent, or the agent itself, should
+remain. All others should be removed.
+
+Reward variables that should be removed:
+all public reward variables - public reward achievement is now embedded in the requirements for public actions
+other agents private reward variables - if our agent still needs to apply them as state changers, he can avoid reward
+calculations. His motivation for applying them shouldn't be their reward.
+
+How exactly we define private and public reward variables?
+
+In rock sampling, the agents branch based on observations of other agents and their result,
+Here they don't have the ability to sense
+hence they cannot really know what's going o
+
+Corridor: When applying rewards for contexed actions, take into account the reward that was achieved in that context as well!
+Now it will be at least uniform with other problems, except for the fact that we'll still need 0 artificial reward and penalty
+to achieve the same results.
+
+Determinizing private co-agents actions...
+
+Paper:
+- Algorithm description and psuedo code
+- Comparison to one algorithm
+- Include rock sampling
+
+- Reward shaping: andrew ing
+- Perhaps using landmarks to insert bit for orders
+
+Need to get the precision note
+
+Box Pushing intergration notes:
+- Agents try to achieve target tile reward asap so the team policy is much more greedy than the agent policies
+- Perhaps some penalty should be given to unsuccessful push to reduce this\ reducing the reward
+
+UBP is interesting but it violates the "sense every uncertain variable" constraint...
+I'll get back to it later
+
+
+Meet in the grid would be interesting.
+Agents move around, stay acts as the public action (meaning the collaborative reward should also be considered as public)
+The team problem basically sets their meeting spot (probably the optimal one), and then they move themselves to that spot,
+while basing their spot according to the sensing of some other agent.
+
+delete foreign private actions prior to the alignment, call this PreProcess
+
+
+Experiments conclusions:
+- BP32303 was improved drastically when decreasing precision from 1000 to 300 (it is nice overall). Need to better formulate the precision pick
+
+
+PROJECTIONS v2
+
+- We can't project any preconditions out, the agent can abuse it to not work on purpose. i.e. collaborative push
+w/o the collaborating agent's position. Two ways to handle, include it in the projection, or make the action work without that precondition.
+
+- Working with NH (AKA no heuristic, only constant reward) is futile. Agents have no priority on PCAs hence no coordination.
+
+- Constant amplification worked nice (1.02). Perhaps I didn't run the previous models properly, need to recheck
+from now on: PV2 - constant amplification PV2_NH - no heuristic constant reward PV2_RH - heuristic with reordering addition (~*2)
+
+- check why NH doesn't work.
+
+- Thesis: more related work (specific of DECPOMDPs  and background, decpomdp survey
+
+- 3 domains
+
+
+
+CHAIN problem amp results
+1.001
+Won 767 out of 890 nonempty games, 86 percent
+Won 877 out of 1000 games, 87 percent
+With empty states, avg accumulated discounted reward: 297.044639
+Without empty states, avg accumulated discounted reward: 333.758022
+Max steps in win: 47
+Avg steps in win: 21
+
+ 1215.02 734     18771    831.069    852.87     21.8011     7320     2146     
+ 543.64  477     14945    1118.81    1140.8     21.9871     5919     1838     
+ 711.38  556     18677    1006.03    1027.44    21.4102     5746     1920     
+
+1.05
+Won 628 out of 866 nonempty games, 72 percent
+Won 762 out of 1000 games, 76 percent
+With empty states, avg accumulated discounted reward: 234.910561
+Without empty states, avg accumulated discounted reward: 271.259308
+Max steps in win: 48
+Avg steps in win: 18
+ 2321.5  823     20463    949.181    971.105    21.9242     7749     2298     
+ 1064.74 641     18259    1264.98    1286.61    21.624      7241     2054     
+ 333.27  401     15183    1139.17    1161.16    21.9948     4735     1745     
+
+1.2
+Won 744 out of 867 nonempty games, 85 percent
+Won 877 out of 1000 games, 87 percent
+With empty states, avg accumulated discounted reward: 280.725436
+Without empty states, avg accumulated discounted reward: 323.789430
+Max steps in win: 52
+Avg steps in win: 21
+ 1908.48 971     22443    1447.59    1469.5     21.9182     9133     2597     
+ 1584.66 793     22403    1879.91    1901.52    21.6063     9291     2347     
+ 379.58  467     15801    1691.62    1708.63    17.0129     5169     1842     
+
+1.99
+Won 809 out of 876 nonempty games, 92 percent
+Won 933 out of 1000 games, 93 percent
+With empty states, avg accumulated discounted reward: 296.181207
+Without empty states, avg accumulated discounted reward: 338.106400
+Max steps in win: 48
+Avg steps in win: 22
+ 669.99  611     13543    12340.6    12362.2    21.6279     5145     1927  
+ 1190.3  772     23381    15313.4    15335.4    21.9919     8506     1858     
+ 312.28  483     13857    13622.6    13638.3    15.706      4599     1647     
+
+
+
+HARD problem amp results
+1.001
+Won 840 out of 879 nonempty games, 95 percent
+Won 961 out of 1000 games, 96 percent
+With empty states, avg accumulated discounted reward: -0.742685
+Without empty states, avg accumulated discounted reward: -0.844921
+Max steps in win: 139
+Avg steps in win: 46
+5427.47 533     22350    6059.16    6282.3     223.145     10540    2636     
+3942.15 562     18895    5966.18    6082.84    116.659     9515     2029     
+
+1.05
+Won 875 out of 875 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 171.107247
+Without empty states, avg accumulated discounted reward: 195.551139
+Max steps in win: 152
+Avg steps in win: 47
+ 5298.8  745     26550    12828.3    13077.1    248.813     12509    2768     
+ 2567.45 500     15311    12584.8    12703.7    118.848     8178     1733     
+
+
+1.2
+Won 614 out of 866 nonempty games, 70 percent
+Won 748 out of 1000 games, 74 percent
+With empty states, avg accumulated discounted reward: -436.215224
+Without empty states, avg accumulated discounted reward: -503.712730
+Max steps in win: 161
+Avg steps in win: 51
+ 5198.16 595     19767    188712     192112     3400.37     9377     2267     
+ 2159.43 417     12249    184851     184954     102.988     6426     1389     
+
+1.99
+Won 49 out of 872 nonempty games, 5 percent
+Won 177 out of 1000 games, 17 percent
+With empty states, avg accumulated discounted reward: -1317.304427
+Without empty states, avg accumulated discounted reward: -1510.670215
+Max steps in win: 32
+Avg steps in win: 10
+ 5124.94 653     18900    5.20536e+10 5.20636e+10 9.97153e+06 8573     1199     
+ 1705.21 330     12103    4.877e+10  4.877e+10  102.53      6960     655      
+
+=== 1 HOUR RUNS (total for all agents)===
+1.001 - CHAIN - Precision:79
+Won 861 out of 861 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 348.347885
+Without empty states, avg accumulated discounted reward: 404.585233
+Max steps in win: 53
+Avg steps in win: 22
+ 682.92  390     12639    800.608    870.578    69.9698     4591     1677
+ 210.23  207     8793     1097.1     1159.87    62.7703     3303     1312
+ 140.26  117     9143     976.054    1045.86    69.8014     2086     1255
+
+1.001 - HARD - Precision:119
+Won 635 out of 870 nonempty games, 72 percent
+Won 765 out of 1000 games, 76 percent
+With empty states, avg accumulated discounted reward: -699.981914
+Without empty states, avg accumulated discounted reward: -804.576913
+Max steps in win: 69
+Avg steps in win: 31
+
+=== 2 HOUR RUNS ===
+1.001 - HARD
+Won 804 out of 869 nonempty games, 92 percent
+Won 935 out of 1000 games, 93 percent
+With empty states, avg accumulated discounted reward: -118.404782
+Without empty states, avg accumulated discounted reward: -136.254064
+Max steps in win: 148
+Avg steps in win: 45
+
+=== 3 HOUR RUNS ==
+Won 848 out of 848 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 91.916714
+Without empty states, avg accumulated discounted reward: 108.392352
+Max steps in win: 137
+Avg steps in win: 47
+ 5240.65 748     28550    6117.38    6262.32    144.937     13740    2881
+ 3662.03 564     18951    5973.46    6082.39    108.933     9380     2031
+
+running example conclusion:
+- in next version we have to somehow relate to the original rewards as well...
+- remove public objectives of all agents in projections - so agents won't perform their fellow agents' objectives.
+- might need to use new private actions that cost alot in single agent... MaxCost should be the real max cost?
+
+NoVerif with pipeline:
+
+BPNEW2-3x3-HARD == 0.25 hour per agent
+<<<<<<< HEAD
+Won 831 out of 874 nonempty games, 95 percent
+Won 957 out of 1000 games, 95 percent
+With empty states, avg accumulated discounted reward: 8.642461
+Without empty states, avg accumulated discounted reward: 9.888399
+Max steps in win: 124
+Avg steps in win: 37
+=======
+precision_reached: 732 ,764
+>>>>>>> 010e16b15c1a7eda5f764f28938d056c2503dd96
+
+BPNEW2-3x3-HARD == 0.5 hour per agent
+Won 812 out of 879 nonempty games, 92 percent
+Won 933 out of 1000 games, 93 percent
+With empty states, avg accumulated discounted reward: 12.229011
+Without empty states, avg accumulated discounted reward: 13.912413
+Max steps in win: 151
+Avg steps in win: 35
+precision_reached: 279,203
+
+BPNEW2-3x3-HARD == 1 hour per agent
+Solving BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP with precision 121.714640
+Solving BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP with precision 203.497462
+Won 885 out of 885 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 345.560254
+Without empty states, avg accumulated discounted reward: 390.463563
+Max steps in win: 105
+Avg steps in win: 35
+
+BPNEW2-3x3-HARD == 1.5 hour per agent
+Won 881 out of 881 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 347.840787
+Without empty states, avg accumulated discounted reward: 394.824956
+Max steps in win: 107
+Avg steps in win: 35
+
+
+BPNEW-3x2-CHAIN
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent3_001AMP.pomdpx': 132.83825126151476,
+ '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent2_001AMP.pomdpx': 132.83825126151476,
+ '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent1_001AMP.pomdpx': 95.2005634913
+33.075 47 22
+1330.7301950857213
+base_reward won
+33.075 47 22
+1330.7301950857213
+base_reward won
+33.075 47 16
+953.4632056558349
+base_reward won
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent3_001AMP.pomdpx': 132.83825126151476, '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent2_001AMP.pomdpx': 132.83825126151476, '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent1_001AMP.pomdpx': 95.20056349132534}
+Projection took 0.968442
+Aligning
+['/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent1_001AMP.dot', '/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent2_001AMP.dot', '/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW-3x2_3A_0H_3L_CHAIN_TEAM_agent3_001AMP.dot']
+Took 1.223150
+Simulating
+Won 867 out of 887 nonempty games, 97 percent
+Won 980 out of 1000 games, 98 percent
+With empty states, avg accumulated discounted reward: 353.816970
+Without empty states, avg accumulated discounted reward: 398.891737
+Max steps in win: 43
+Avg steps in win: 21
+
+BPNEW-3x2_3A_0H_2L-CHAIN
+Solving BPNEW-3x2_3A_0H_2L_CHAIN_TEAM_agent3_001AMP with precision 75.282157
+Solving BPNEW-3x2_3A_0H_2L_CHAIN_TEAM_agent2_001AMP with precision 89.867454
+Solving BPNEW-3x2_3A_0H_2L_CHAIN_TEAM_agent1_001AMP with precision 89.867454
+
+Took 0.484441
+Simulating
+Won 0 out of 737 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -25.713465
+Without empty states, avg accumulated discounted reward: -34.889369
+Max steps in win: 0
+Avg steps in win: 0
+Won 0 out of 725 nonempty games, 0 percent
+Won 275 out of 1000 games, 27 percent
+With empty states, avg accumulated discounted reward: -36.014669
+Without empty states, avg accumulated discounted reward: -49.675405
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 755 nonempty games, 0 percent
+Won 245 out of 1000 games, 24 percent
+With empty states, avg accumulated discounted reward: -63.245229
+Without empty states, avg accumulated discounted reward: -83.768515
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 764 nonempty games, 0 percent
+Won 236 out of 1000 games, 23 percent
+With empty states, avg accumulated discounted reward: -75.785721
+Without empty states, avg accumulated discounted reward: -99.195970
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 736 nonempty games, 0 percent
+Won 264 out of 1000 games, 26 percent
+With empty states, avg accumulated discounted reward: -78.031826
+Without empty states, avg accumulated discounted reward: -106.021502
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 771 nonempty games, 0 percent
+Won 229 out of 1000 games, 22 percent
+With empty states, avg accumulated discounted reward: -97.467042
+Without empty states, avg accumulated discounted reward: -126.416397
+Max steps in win: 4
+Avg steps in win: 4
+Won 757 out of 757 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 243.904622
+Without empty states, avg accumulated discounted reward: 322.198973
+Max steps in win: 40
+Avg steps in win: 14
+
+BPNEW-2x2_2A_0H_3L-CHAIN
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-2x2_2A_0H_3L_CHAIN_TEAM_agent2_001AMP.pomdpx': 72.42526972600245,
+ '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-2x2_2A_0H_3L_CHAIN_TEAM_agent1_001AMP.pomdpx': 72.4252697260024
+Won 0 out of 860 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -14.066814
+Without empty states, avg accumulated discounted reward: -16.356761
+Max steps in win: 0
+Avg steps in win: 0
+Won 0 out of 864 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -14.842191
+Without empty states, avg accumulated discounted reward: -17.178461
+Max steps in win: 0
+Avg steps in win: 0
+Won 0 out of 870 nonempty games, 0 percent
+Won 130 out of 1000 games, 13 percent
+With empty states, avg accumulated discounted reward: -19.781994
+Without empty states, avg accumulated discounted reward: -22.737924
+Max steps in win: 5
+Avg steps in win: 5
+Won 0 out of 861 nonempty games, 0 percent
+Won 139 out of 1000 games, 13 percent
+With empty states, avg accumulated discounted reward: -45.914149
+Without empty states, avg accumulated discounted reward: -53.326538
+Max steps in win: 5
+Avg steps in win: 5
+Won 0 out of 889 nonempty games, 0 percent
+Won 111 out of 1000 games, 11 percent
+With empty states, avg accumulated discounted reward: -49.390821
+Without empty states, avg accumulated discounted reward: -55.557729
+Max steps in win: 5
+Avg steps in win: 5
+Won 0 out of 874 nonempty games, 0 percent
+Won 126 out of 1000 games, 12 percent
+With empty states, avg accumulated discounted reward: 49.803712
+Without empty states, avg accumulated discounted reward: 56.983652
+Max steps in win: 5
+Avg steps in win: 5
+Won 867 out of 867 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 518.022281
+Without empty states, avg accumulated discounted reward: 597.488214
+Max steps in win: 35
+Avg steps in win: 17
+
+
+BPNEW-2x2_2A_0H_2L-CHAIN
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-2x2_2A_0H_2L_CHAIN_TEAM_agent2_001AMP.pomdpx': 109.72906219031967,
+ '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-2x2_2A_0H_2L_CHAIN_TEAM_agent1_001AMP.pomdpx': 55.802689071687
+Won 0 out of 751 nonempty games, 0 percent
+        try:
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -27.909304
+Without empty states, avg accumulated discounted reward: -37.162855
+Max steps in win: 0
+Avg steps in win: 0
+Won 0 out of 765 nonempty games, 0 percent
+Won 235 out of 1000 games, 23 percent
+With empty states, avg accumulated discounted reward: -32.559576
+Without empty states, avg accumulated discounted reward: -42.561537
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 759 nonempty games, 0 percent
+Won 241 out of 1000 games, 24 percent
+With empty states, avg accumulated discounted reward: -48.137627
+Without empty states, avg accumulated discounted reward: -63.422434
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 743 nonempty games, 0 percent
+Won 257 out of 1000 games, 25 percent
+With empty states, avg accumulated discounted reward: -48.488373
+Without empty states, avg accumulated discounted reward: -65.260260
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 753 nonempty games, 0 percent
+Won 247 out of 1000 games, 24 percent
+With empty states, avg accumulated discounted reward: 181.652339
+Without empty states, avg accumulated discounted reward: 241.238166
+Max steps in win: 4
+Avg steps in win: 4
+Won 0 out of 746 nonempty games, 0 percent
+Won 254 out of 1000 games, 25 percent
+With empty states, avg accumulated discounted reward: 199.380322
+Without empty states, avg accumulated discounted reward: 267.265847
+Max steps in win: 4
+Avg steps in win: 4
+Won 726 out of 726 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 356.085380
+Without empty states, avg accumulated discounted reward: 490.475730
+Max steps in win: 23
+Avg steps in win: 9
+
+
+BPNEW-2x2_2A_0H_1L-CHAIN
+
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-2x2_2A_0H_1L_CHAIN_TEAM_agent2_001AMP.pomdpx': 178.20856484339944,
+ '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW-2x2_2A_0H_1L_CHAIN_TEAM_agent1_001AMP.pomdpx': 72.431030319429
+
+Won 0 out of 483 nonempty games, 0 percent
+Won 517 out of 1000 games, 51 percent
+    problem_name = "BPNEW-2x2_2A_0H_2L_CHAIN_TEAM"
+With empty states, avg accumulated discounted reward: -26.951731
+Without empty states, avg accumulated discounted reward: -55.800686
+Max steps in win: 3
+Avg steps in win: 3
+Won 0 out of 485 nonempty games, 0 percent
+Won 515 out of 1000 games, 51 percent
+With empty states, avg accumulated discounted reward: -32.213553
+Without empty states, avg accumulated discounted reward: -66.419696
+Max steps in win: 3
+Avg steps in win: 3
+Won 0 out of 504 nonempty games, 0 percent
+Won 496 out of 1000 games, 49 percent
+With empty states, avg accumulated discounted reward: -36.483616
+Without empty states, avg accumulated discounted reward: -72.388127
+Max steps in win: 3
+Avg steps in win: 3
+Won 0 out of 483 nonempty games, 0 percent
+Won 517 out of 1000 games, 51 percent
+With empty states, avg accumulated discounted reward: 126.072450
+Without empty states, avg accumulated discounted reward: 261.019565
+Max steps in win: 3
+Avg steps in win: 3
+Won 0 out of 510 nonempty games, 0 percent
+Won 490 out of 1000 games, 49 percent
+With empty states, avg accumulated discounted reward: 137.301941
+Without empty states, avg accumulated discounted reward: 269.219493
+Max steps in win: 3
+Avg steps in win: 3
+Won 366 out of 474 nonempty games, 77 percent
+Won 892 out of 1000 games, 89 percent
+With empty states, avg accumulated discounted reward: 158.989833
+Without empty states, avg accumulated discounted reward: 335.421588
+Max steps in win: 8
+Avg steps in win: 5
+Won 495 out of 495 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 178.315586
+Without empty states, avg accumulated discounted reward: 360.233507
+Max steps in win: 14
+Avg steps in win: 5
+
+
+\eliran{this case is interesting, as Agent1 will effectively never need to consider the second PCA... perhaps we can simplify the reward function?}
+
+Precision2
+
+BPNEW2-HARD-0.5hour per agent
+Projecting team problem
+41.0 56 18
+1334.6557111247803
+base_reward won
+41.0 56 29
+2232.0250236857673
+base_reward won
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP.pomdpx': 189.01436624668554, '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP.pomdpx': 296.40595111150833}
+Projection took 0.897676
+Solving BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP with precision 189.014366
+Solving BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP with precision 296.405951
+Aligning
+['/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP.dot', '/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP.dot']
+Won 863 out of 896 nonempty games, 96 percent
+Won 967 out of 1000 games, 96 percent
+With empty states, avg accumulated discounted reward: 148.531198
+Without empty states, avg accumulated discounted reward: 165.771427
+Max steps in win: 96
+Avg steps in win: 36
+
+BPNEW2-HARD-0.25 hour per agent
+Projecting team problem
+41.0 56 18
+1334.6557111247803
+base_reward won
+41.0 56 29
+2232.0250236857673
+base_reward won
+{'/home/eliranabdoo/FDMAP/Resources/problems/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP.pomdpx': 189.01436624668554, '/home/eliranabdoo/FDMAP/Resources/problems/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP.pomdpx': 296.40595111150833}
+Projection took 0.779257
+Solving BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP with precision 189.014366
+Solving BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP with precision 296.405951
+Aligning
+['/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent2_001AMP.dot', '/home/eliranabdoo/FDMAP/Resources/graphs/BPNEW2-3x3_2A_2H_1L_HARD_TEAM_agent1_001AMP.dot']
+Took 1.796292
+Won 816 out of 878 nonempty games, 92 percent
+Won 938 out of 1000 games, 93 percent
+With empty states, avg accumulated discounted reward: -42.139683
+Without empty states, avg accumulated discounted reward: -47.995083
+Max steps in win: 119
+Avg steps in win: 37
+
+To clarify the second point, we do use the reward function and just do not explicitly use its positive rewards,
+but rather derive the rewards of the PCAs based on approximated costs they will have to surpass.
+I read a bit about reward shaping and came up with some baseline we can work with.
+The main idea is to define a "potential function" p over states,
+and then reshape the reward function by making the transformation R_new(s,a,s') = R(s,a,s') + F(s,a,s'),
+where if F preserves the property that F(s,a,s')=gamma*p(s')-p(s),
+then policy optimality is preserved in the new problem (which might not be exactly what we need, but it seems the best we can do)
+Since we're only interested in rewarding public actions,
+we can learn this potential function p (or derive heuristically for a start) on projected contexts,
+where we divide the total reward between states that resulted after applying a public action,
+proportionally to their preceding negative rewards (hence maintaining the overall reward).
+We can then define for a PCA like (context, action) that following: F((context, action), s') = gamma*p(s')-p(context)
+
+Reward Shaping Algorithm - determine rewards for ALL single agent problems:
+pca_map = {pca_i: 0 for i in num_pcas}
+for t in traces:
+    cur_cost=0
+    for j,e in enumerate(t):
+        cur_cost+=e.Rneg * (gamma**j)
+        if e.action is public:
+            i = get_pca_index(e)
+            alpha_{i} =  cur_cost
+            cur_cost = 0
+
+    normalizing_factor = sum(alpha_{i} for i in range(num_pcas))
+    for i in range(num_pcas):
+        alpha_{i} /= normalizing_factor
+
+    # Alpha i are weights based on cost preceding each CA
+
+    j_prev=0
+    for j,e in t:
+        if e.action is public:
+            r = e.Rpos / sp(e.action)
+            d = j - j_prev
+            j_prev = j
+            for k,v in pca_map.items():
+                pca_map[k] += r * alpha_{k} * (gamma**d)
+
+
+for k,v in pca_map.items():
+    pca_map[k] = v / len(traces)
+
+Interesting points:
+    Order:
+    We no longer want to apply reward hacks that enforce order, apart from tie breaking. Order should be naturally
+    enforced using the projection and weights (alpha_i)
+
+    Penalties:
+    In the absence of penalties, cycles may occur
+    Too high penalties prevent the agent from acting under uncertainty
+    Usually, cycles are eliminated using the the definition of potential function, which means that
+    R_new = R+F where F(s,a,s')=gamma*phi(s') - phi(s), but this is good only for regular reward shaping, where we don't
+    have any specific states we reward.
+    We can add high penalty for F(s',a,s) if we reward F(s, a, s')
+
+    Reward magnitude:
+    We divide the public reward achieved in the team plan between the PCAs. (should we divide the private reward as well?)
+    If we leave the costs of each agent only, the share of the reward should suffice to counter the costs.
+    In case it wouldn't, it means that the decentralized policy is not beneficial to begin with.
+
+Assignments:
+- Ease the problems? it is not that good that we just stop on certain horizon
+- adding maximum timestamp to PCAs (collab only?)
+- reward shaping example for DecTiger
+
+Define problems such that it wouldn't be beneficial to apply a faulty action.
+
+Ideas for improvements:
+- Make more drastic separation between agents using bias constant
+- Do livelock handling prior to alignment
+- Precision changes (BP-3x1, super weird). Even with fixed precision, might change results
+
+DecTiger:
+- Non progressing CAs can be found now.
+
+We look at two things. One the one hand, action that yield higher reward in the team problem are not necessarily better than those who yield less/none, as we're
+looking at the whole plan as the objective. This contradict with the idea that there are non beneficial CAs.
+
+Perhaps reward only for CA that either rewards or changes state to a new one.
+
+Assign the delta, look whether SARSOP can export the Q/V functions.
+
+Rewards assignment in my reward shaping:
+Start with assumption that private variable are eventually certain (from any state, we can achieve full certainty regarding them).
+Rewards are given as following:
+For agent at question:
+  - Executing CA out of exact private context - hard penalty
+  - Executing CA in exact private context, regardless of public context - no penalty
+  - Executing CA in exact private AND public context - expected reward according to heuristic
+
+For co agents' actions:
+  - Executing CA out of exact private context - hard penalty
+  - Executing CA in exact private context, regardless of public context - no penalty
+
+  In practice:
+  - Hard penalty for all coagents actions, gap fillers are non-penalized under public part of contexts.
+
+Need to handle cycle closing actions with existing private contexts, otherwise they are heavily penalized.
+
+# Add evaluate function to POMDPX object - would be worth the trouble
+# Fix total reward by considering rewards only and scaling by success prob
+# Add cost extraction to public action
+
+DONE THE ABOVE
+
+# better reward variables separation - merged to one reward variable
+# include all initial states in the visited states set- still not fully helful
+
+November:
+* No dec/team obsvars seperation caused actual joint observation which are causing problems when
+copying edge data in alignment - done with symmetric of obsvar assumption. Counting general + agent obsvars
+* Fix servers urgently.
+
+3.11
+* Reward for collborative is problematic
+
+7.11
+* Check new heuristic on BP
+* write dectiger in pgmx
+* eyeball the alignment in dectiger
+
+
+
+14.11
+Tasks:
+- get algorithm to work on BP:
+    precision 2, no depth limit and no reward amp:
+    bp32302 - 100%
+    bp32303 - 100%
+    bp33221 - 100% with high precisions, and collab reward multiplier (215.407, 134.942), T3600
+    bp33221 - 100% with high precisions, and no collab reward multiplier (250 set), T3600, better reward
+
+    trying different team precision on fdmap-v3-2. TEAM PRECISION ACHIEVED 177, 1000 secs
+    SA precision (100, 113) 3600 secs.
+    
+
+
+
+- generate DecTiger PGMX
+
+- eyeball my DecTiger policies
+
+- generate final problem
+
+
+differences made from BP to DT
+- added appearances capping
+- changes appearances to counts. shouldn't change BP but I should be advised. (no difference found in BPHARD)
+
+Good dt results came when no penalty cancelation existed for 111 000 cotnexts
+sim random seed 3131341511581881 dt

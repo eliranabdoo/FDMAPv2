@@ -1,0 +1,357 @@
+Solving team problem
+Projecting team problem
+Metadata not stated!
+Metadata not stated!
+Metadata not stated!
+{'/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent1.pomdpx': 0.1, '/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent2.pomdpx': 0.1}
+Projection took 3.509096
+Solving DT-2x1_2A_agent1 with precision 0.100000
+Solving DT-2x1_2A_agent2 with precision 0.100000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent1.dot']
+Metadata not stated!
+Took 0.159999
+Simulating
+===Start sim for horizon 1===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -2.000000
+Without empty states, avg accumulated discounted reward: -2.000000
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 2===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: -2.009900
+Without empty states, avg accumulated discounted reward: -2.009900
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 3===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 11.300428
+Without empty states, avg accumulated discounted reward: 11.300428
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 4===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.859998
+Without empty states, avg accumulated discounted reward: 8.859998
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 5===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.328032
+Without empty states, avg accumulated discounted reward: 8.328032
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 6===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.663507
+Without empty states, avg accumulated discounted reward: 8.663507
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 7===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 9.352398
+Without empty states, avg accumulated discounted reward: 9.352398
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 8===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 7.846398
+Without empty states, avg accumulated discounted reward: 7.846398
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 9===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.679137
+Without empty states, avg accumulated discounted reward: 8.679137
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 10===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 10.541831
+Without empty states, avg accumulated discounted reward: 10.541831
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 11===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 9.609815
+Without empty states, avg accumulated discounted reward: 9.609815
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 12===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 9.235386
+Without empty states, avg accumulated discounted reward: 9.235386
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 13===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 14.215414
+Without empty states, avg accumulated discounted reward: 14.215414
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 14===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 13.051028
+Without empty states, avg accumulated discounted reward: 13.051028
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 15===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 14.846426
+Without empty states, avg accumulated discounted reward: 14.846426
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 16===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 13.606129
+Without empty states, avg accumulated discounted reward: 13.606129
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 17===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 16.293188
+Without empty states, avg accumulated discounted reward: 16.293188
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 18===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 15.345278
+Without empty states, avg accumulated discounted reward: 15.345278
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 19===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 19.325347
+Without empty states, avg accumulated discounted reward: 19.325347
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 20===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 16.170630
+Without empty states, avg accumulated discounted reward: 16.170630
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 21===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 16.981378
+Without empty states, avg accumulated discounted reward: 16.981378
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 22===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 14.798242
+Without empty states, avg accumulated discounted reward: 14.798242
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 23===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 15.885639
+Without empty states, avg accumulated discounted reward: 15.885639
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 24===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 20.650621
+Without empty states, avg accumulated discounted reward: 20.650621
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 25===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 17.915085
+Without empty states, avg accumulated discounted reward: 17.915085
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 26===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 19.955655
+Without empty states, avg accumulated discounted reward: 19.955655
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 27===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 19.457567
+Without empty states, avg accumulated discounted reward: 19.457567
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 28===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 21.047932
+Without empty states, avg accumulated discounted reward: 21.047932
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 29===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 19.634270
+Without empty states, avg accumulated discounted reward: 19.634270
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 30===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 19.733938
+Without empty states, avg accumulated discounted reward: 19.733938
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 31===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 16.622534
+Without empty states, avg accumulated discounted reward: 16.622534
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 32===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 22.959462
+Without empty states, avg accumulated discounted reward: 22.959462
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 33===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 21.178594
+Without empty states, avg accumulated discounted reward: 21.178594
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 34===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 21.301860
+Without empty states, avg accumulated discounted reward: 21.301860
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 35===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 19.762605
+Without empty states, avg accumulated discounted reward: 19.762605
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 36===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 22.197171
+Without empty states, avg accumulated discounted reward: 22.197171
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 37===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 22.981357
+Without empty states, avg accumulated discounted reward: 22.981357
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 38===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 22.866515
+Without empty states, avg accumulated discounted reward: 22.866515
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 39===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 26.392969
+Without empty states, avg accumulated discounted reward: 26.392969
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 40===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 25.826936
+Without empty states, avg accumulated discounted reward: 25.826936
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 41===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 24.043312
+Without empty states, avg accumulated discounted reward: 24.043312
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 42===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 25.500323
+Without empty states, avg accumulated discounted reward: 25.500323
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 43===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 26.634491
+Without empty states, avg accumulated discounted reward: 26.634491
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 44===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 27.808718
+Without empty states, avg accumulated discounted reward: 27.808718
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 45===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 29.028129
+Without empty states, avg accumulated discounted reward: 29.028129
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 46===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 31.787497
+Without empty states, avg accumulated discounted reward: 31.787497
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 47===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 28.913195
+Without empty states, avg accumulated discounted reward: 28.913195
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 48===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 25.832923
+Without empty states, avg accumulated discounted reward: 25.832923
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 49===
+Won 0 out of 1000 nonempty games, 0 percent
+Won 0 out of 1000 games, 0 percent
+With empty states, avg accumulated discounted reward: 28.181030
+Without empty states, avg accumulated discounted reward: 28.181030
+Max steps in win: 0
+Avg steps in win: 0

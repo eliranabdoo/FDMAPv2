@@ -1,0 +1,4 @@
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 19:22:00.706694================
+==================Pipeline Starts on ./pipeline_logs/BP-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 19:22:00.706777================
+Solving team problem
+==================Pipeline ERROR on ./pipeline_logs/BP-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 19:22:00.706777: local variable 'projected_problem_path_to_precision' referenced before assignment================

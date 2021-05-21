@@ -1,0 +1,18 @@
+/home/eliranab/FDMAP/POMDPX/POMDPX.py:483: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if cur_entry.table == "uniform":
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-3x3_2A_2H_1L_TEAM_agent1.pomdpx': 150, '/home/eliranab/FDMAP/Resources/problems/BP-3x3_2A_2H_1L_TEAM_agent2.pomdpx': 150}
+Projection took 4.940883
+Solving BP-3x3_2A_2H_1L_TEAM_agent1 with precision 150.000000
+Solving BP-3x3_2A_2H_1L_TEAM_agent2 with precision 150.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-3x3_2A_2H_1L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-3x3_2A_2H_1L_TEAM_agent1.dot']
+Took 3.692849
+Simulating
+===Start sim for horizon 200===
+Won 773 out of 857 nonempty games, 90 percent
+Won 916 out of 1000 games, 91 percent
+With empty states, avg accumulated discounted reward: 49.020498
+Without empty states, avg accumulated discounted reward: 57.200115
+Max steps in win: 116
+Avg steps in win: 46

@@ -1,0 +1,31 @@
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x1_2A_1H_0L_TEAM-pipeline-2020-12-01 04:57:06.981645================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 04:57:06.981749================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-2x2_3A_0H_2L_TEAM-pipeline-2020-12-01 04:57:06.981764================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x2_3A_0H_2L_TEAM-pipeline-2020-12-01 04:57:06.981774================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x2_3A_0H_3L_TEAM-pipeline-2020-12-01 04:57:06.981784================
+==================Pipeline Sequential INIT on ./pipeline_logs/BP-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 04:57:06.981794================
+==================Pipeline Sequential INIT on ./pipeline_logs/BPPEN-3x1_2A_1H_1L_TEAM-pipeline-2020-12-01 04:57:06.981804================
+==================Pipeline Sequential INIT on ./pipeline_logs/BPPEN-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 04:57:06.981814================
+==================Pipeline Sequential INIT on ./pipeline_logs/BPPEN-2x2_2A_0H_3L_TEAM-pipeline-2020-12-01 04:57:06.981824================
+==================Pipeline Starts on ./pipeline_logs/BP-2x1_2A_1H_0L_TEAM-pipeline-2020-12-01 04:57:06.981838================
+Solving team problem
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-2x1_2A_1H_0L_TEAM_agent1.pomdpx': 5, '/home/eliranab/FDMAP/Resources/problems/BP-2x1_2A_1H_0L_TEAM_agent2.pomdpx': 5}
+Projection took 2.865337
+Solving BP-2x1_2A_1H_0L_TEAM_agent1 with precision 5.000000
+Solving BP-2x1_2A_1H_0L_TEAM_agent2 with precision 5.000000
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/BP-2x1_2A_1H_0L_TEAM_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/BP-2x1_2A_1H_0L_TEAM_agent1.dot']
+Took 0.096721
+Simulating
+===Start sim for horizon 200===
+Won 504 out of 504 nonempty games, 100 percent
+Won 1000 out of 1000 games, 100 percent
+With empty states, avg accumulated discounted reward: 429.621845
+Without empty states, avg accumulated discounted reward: 852.424296
+Max steps in win: 31
+Avg steps in win: 4
+==================Pipeline Finished on ./pipeline_logs/BP-2x1_2A_1H_0L_TEAM-pipeline-2020-12-01 04:57:06.981838================
+==================Pipeline Starts on ./pipeline_logs/BP-2x2_2A_0H_2L_TEAM-pipeline-2020-12-01 04:57:13.928615================
+Solving team problem
+Projecting team problem

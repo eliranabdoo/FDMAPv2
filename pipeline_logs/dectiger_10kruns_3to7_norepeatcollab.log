@@ -1,0 +1,48 @@
+Projecting team problem
+Metadata not stated!
+/home/eliranab/FDMAP/POMDPX/POMDPX.py:483: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if cur_entry.table == "uniform":
+Metadata not stated!
+Metadata not stated!
+{'/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent1.pomdpx': 0.1, '/home/eliranab/FDMAP/Resources/problems/DT-2x1_2A_agent2.pomdpx': 0.1}
+Projection took 3.386308
+Aligning
+['/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent2.dot', '/home/eliranab/FDMAP/Resources/graphs/DT-2x1_2A_agent1.dot']
+Metadata not stated!
+Took 0.179113
+Simulating
+===Start sim for horizon 3===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 10.910232
+Without empty states, avg accumulated discounted reward: 10.910232
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 4===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 9.027431
+Without empty states, avg accumulated discounted reward: 9.027431
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 5===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 8.103198
+Without empty states, avg accumulated discounted reward: 8.103198
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 6===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 7.182164
+Without empty states, avg accumulated discounted reward: 7.182164
+Max steps in win: 0
+Avg steps in win: 0
+===Start sim for horizon 7===
+Won 0 out of 10000 nonempty games, 0 percent
+Won 0 out of 10000 games, 0 percent
+With empty states, avg accumulated discounted reward: 7.707398
+Without empty states, avg accumulated discounted reward: 7.707398
+Max steps in win: 0
+Avg steps in win: 0

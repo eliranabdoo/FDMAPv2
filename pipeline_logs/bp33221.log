@@ -1,0 +1,5 @@
+/home/eliranab/FDMAP/POMDPX/POMDPX.py:483: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+  if cur_entry.table == "uniform":
+Projecting team problem
+{'/home/eliranab/FDMAP/Resources/problems/BP-3x3_2A_2H_1L_TEAM_agent1.pomdpx': 10, '/home/eliranab/FDMAP/Resources/problems/BP-3x3_2A_2H_1L_TEAM_agent2.pomdpx': 10}
+Projection took 7.564506
